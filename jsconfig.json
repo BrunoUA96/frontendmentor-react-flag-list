@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
+    "module": "es2020",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
     "checkJs": true,
     "baseUrl": ".",
     "paths": {
+      "@components/*": ["./src/components/*"],
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src"]
 }
