@@ -1,0 +1,44 @@
+/* Reset Styles */
+@import url(./assets/normalize.css);
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,600;6..12,800&display=swap');
+
+/* Global styles */
+
+* {
+  box-sizing: border-box;
+}
+
+/* CSS Global Vars */
+:root {
+  /* Typography */
+  --font-family: 'Nunito Sans', sans-serif;
+  --fw-light: 300;
+  --fw-normal: 600;
+  --fw-bold: 800;
+  --fs-sm: 14px;
+  --fs-md: 16px;
+
+  /* Others */
+  --b-radius: 0.5rem;
+}
+
+body[data-theme='dark'] {
+  --text-color: hsl(0, 0%, 100%);
+  --bg-color: hsl(207, 26%, 17%);
+  --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+}
+
+body[data-them='light'] {
+  --text-color: hsl(200, 15%, 8%);
+  --bg-color: hsl(0, 0%, 98%);
+  --shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  font-weight: var(--fw-light);
+  background-color: var(--bg-color);
+}
