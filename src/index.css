@@ -20,7 +20,7 @@
   --fs-md: 16px;
 
   /* Others */
-  --b-radius: 0.5rem;
+  --b-radius: 0.3rem;
   --transition: 0.2s all ease-in-out;
 }
 
@@ -28,14 +28,14 @@ body[data-theme='dark'] {
   --text-color: hsl(0, 0%, 100%);
   --bg-color: hsl(207, 26%, 17%);
   --bg-element: hsl(209, 23%, 22%);
-  --shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+  --shadow: hsl(207deg 30.42% 13.27%) 0px 2px 8px;
 }
 
 body[data-theme='light'] {
   --text-color: hsl(200, 15%, 8%);
   --bg-color: hsl(0, 0%, 98%);
   --bg-element: hsl(0, 0%, 100%);
-  --shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  --shadow: hsl(0deg 0% 90.03%) 0px 2px 8px;
 }
 
 body {
@@ -44,4 +44,19 @@ body {
   font-weight: var(--fw-light);
   background-color: var(--bg-color);
   transition: var(--transition);
+}
+
+/* Style placeholders */
+::placeholder,
+::-webkit-input-placeholder {
+  color: var(--text-color);
+  transition: var(--transition);
+  font-family: var(--font-family);
+  font-weight: var(--fw-light);
+}
+:-ms-input-placeholder {
+  color: var(--text-color);
+  transition: var(--transition);
+  font-family: var(--font-family);
+  font-weight: var(--fw-light);
 }
