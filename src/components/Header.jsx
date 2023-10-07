@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IoMoon, IoMoonOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 2rem 0;
 `;
-const Title = styled.a.attrs({ href: '/' })`
+const Title = styled(Link)`
   text-decoration: none;
   color: var(--text-color);
   font-size: var(--fs-md);
@@ -53,7 +54,7 @@ export const Header = () => {
     <HeaderElement>
       <Container>
         <Wrapper>
-          <Title>Where in the world?</Title>
+          <Title to="/">Where in the world?</Title>
           <ThemeSwitcher onClick={toggleTheme}>
             {themeColor === 'light' ? (
               <IoMoonOutline size="16px" />
