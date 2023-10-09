@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -25,10 +25,27 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Controls = () => {
+export const Controls = ({ onFilterCountries }) => {
   const [search, setSearch] = useState('');
 
-  const [selectedRegion, setSelectedRegion] = useState('');
+  const defaultRegionValue = {
+    value: '',
+    label: '',
+  };
+  const [selectedRegion, setSelectedRegion] = useState(defaultRegionValue);
+
+  const onChangeRegion = region => {
+    if (region === null) region = defaultRegionValue;
+
+    setSelectedRegion(region);
+  };
+
+  useEffect(() => {
+    // Only value needs
+    const regionValue = selectedRegion.value;
+
+    onFilterCountries(search, regionValue);
+  }, [search, selectedRegion]);
 
   return (
     <Wrapper>
@@ -38,8 +55,8 @@ export const Controls = () => {
         isSearchable={false}
         placeholder="Filter by Region"
         options={selectOptions}
-        value={selectedRegion}
-        onChange={setSelectedRegion}
+        value={selectedRegion.value ? selectedRegion : ''}
+        onChange={onChangeRegion}
       />
     </Wrapper>
   );
