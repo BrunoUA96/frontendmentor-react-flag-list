@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { filterByCode } from '@/config';
 import { Image } from '@components/shared/Image';
+import { List } from '@components/shared/list/List';
+import { ListItem } from '@components/shared/list/ListItem';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -37,23 +39,6 @@ const ListGroup = styled.div`
   @media (min-width: 1200px) {
     flex-direction: row;
     gap: 4rem;
-  }
-`;
-
-const List = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const ListItem = styled.li`
-  font-size: var(--fs-sm);
-  color: var(--text-color);
-  transition: var(--transition);
-  line-height: 1.8;
-
-  & > b {
-    font-weight: var(--fw-normal);
   }
 `;
 
@@ -124,7 +109,7 @@ export const Info = props => {
         <InfoTitle>{name}</InfoTitle>
 
         <ListGroup>
-          <List>
+          <List content="0">
             <ListItem>
               <b>Native Name:</b> {nativeName}
             </ListItem>
@@ -141,7 +126,7 @@ export const Info = props => {
               <b>Capital:</b> {capital}
             </ListItem>
           </List>
-          <List>
+          <List content="0">
             <ListItem>
               <b>Top Level Domain:</b>{' '}
               {topLevelDomain.map(domain => (

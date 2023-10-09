@@ -1,4 +1,6 @@
 import { Image } from '@components/shared/Image';
+import { List } from '@components/shared/list/List';
+import { ListItem } from '@components/shared/list/ListItem';
 import styled from 'styled-components';
 
 const Wrapper = styled.article`
@@ -22,35 +24,19 @@ const CardTitle = styled.h3`
   transition: var(--transition);
 `;
 
-const CardList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 1rem 0 0;
-`;
-
-const CardListItem = styled.li`
-  font-size: var(--fs-sm);
-  color: var(--text-color);
-  transition: var(--transition);
-
-  & > b {
-    font-weight: var(--fw-normal);
-  }
-`;
-
 export const Card = ({ img, title, listInfo = [], onClick = () => {} }) => {
   return (
     <Wrapper onClick={onClick}>
       <Image height="150px" src={img} />
       <CardBody>
         <CardTitle>{title}</CardTitle>
-        <CardList>
+        <List content="1rem 0 0">
           {listInfo.map((element, index) => (
-            <CardListItem key={index}>
+            <ListItem key={index}>
               <b>{element.title}</b>: {element.description}
-            </CardListItem>
+            </ListItem>
           ))}
-        </CardList>
+        </List>
       </CardBody>
     </Wrapper>
   );
