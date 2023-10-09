@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { filterByCode } from '@/config';
+import { Image } from '@components/shared/Image';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -21,13 +22,6 @@ const Wrapper = styled.section`
   @media (min-width: 1024px) {
     grid-template-columns: minmax(400px, 600px) 1fr;
   }
-`;
-
-const InfoImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 `;
 
 const InfoTitle = styled.h1`
@@ -124,7 +118,7 @@ export const Info = props => {
 
   return (
     <Wrapper>
-      <InfoImage src={flag} alt={name} />
+      <Image height="auto" src={flag} alt={name} />
 
       <div>
         <InfoTitle>{name}</InfoTitle>
