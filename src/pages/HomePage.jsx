@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { ALL_COUNTRIES } from '@/config';
 import { Card } from '@components/home/Card';
-import { Controls } from '@components/home/Controls';
 import { List } from '@components/home/List';
+import { Controls } from '@components/home/filters/Controls';
 import axios from 'axios';
 
 export const HomePage = ({ setCountries, countries }) => {
