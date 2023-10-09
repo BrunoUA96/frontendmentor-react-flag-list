@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Header } from '@components/Header';
-import { Main } from '@components/Main';
+import { Main } from '@components/global/Main';
+import { Header } from '@components/global/header/Header';
 
 import { Details } from './pages/Details';
 import { HomePage } from './pages/HomePage';

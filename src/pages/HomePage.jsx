@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ALL_COUNTRIES } from '@/config';
-import { Card } from '@components/Card';
-import { Controls } from '@components/Controls';
-import { List } from '@components/List';
+import { Card } from '@components/home/Card';
+import { Controls } from '@components/home/Controls';
+import { List } from '@components/home/List';
 import axios from 'axios';
 
 export const HomePage = ({ setCountries, countries }) => {
+  const navigate = useNavigate();
+
   const [filteredCountries, setFilteredCountries] = useState(countries);
 
   const onFilterCountries = (search = '', region = '') => {
@@ -26,12 +28,14 @@ export const HomePage = ({ setCountries, countries }) => {
     setFilteredCountries(data);
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!countries.length)
       axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
   }, []);
+
+  useEffect(() => {
+    onFilterCountries();
+  }, [countries]);
 
   return (
     <>

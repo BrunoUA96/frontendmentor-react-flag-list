@@ -3,8 +3,8 @@ import { IoArrowBack } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { searchByCountry } from '@/config';
-import { Button } from '@components/Button';
-import { Info } from '@components/Info';
+import { Button } from '@components/details/Button';
+import { Info } from '@components/details/Info';
 import axios from 'axios';
 
 export const Details = () => {

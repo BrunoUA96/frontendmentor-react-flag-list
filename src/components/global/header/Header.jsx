@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import { Container } from './Container';
+import { Container } from '../Container';
 
 const HeaderElement = styled.div`
   box-shadow: var(--shadow);
