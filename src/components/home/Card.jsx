@@ -1,6 +1,4 @@
-import { Image } from '@components/shared/Image';
-import { List } from '@components/shared/list/List';
-import { ListItem } from '@components/shared/list/ListItem';
+import { Image, List, ListItem } from '@components/shared';
 import styled from 'styled-components';
 
 const Wrapper = styled.article`

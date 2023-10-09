@@ -11,18 +11,21 @@ const HeaderElement = styled.div`
   background-color: var(--bg-element);
   transition: var(--transition);
 `;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem 0;
 `;
+
 const Title = styled(Link)`
   text-decoration: none;
   color: var(--text-color);
   font-size: var(--fs-md);
   font-weight: var(--fw-bold);
 `;
+
 const ThemeSwitcher = styled.div`
   cursor: pointer;
   font-size: var(--fs-sm);
