@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { filterByCode } from '@/config';
-import { Image, List, ListItem } from '@components/shared';
+import { Button, Image, List, ListItem } from '@components/shared';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -10,18 +9,6 @@ import { ListGroup, Meta, TagGroup, Wrapper } from '.';
 
 const InfoTitle = styled.h1`
   margin: 0 0 1.5rem;
-`;
-
-const Tag = styled(Link)`
-  padding: 0 1rem;
-  background-color: var(--bg-element);
-  text-decoration: none;
-  color: var(--text-color);
-  transition: var(--transition);
-
-  box-shadow: var(--shadow);
-  line-height: 1.5;
-  cursor: pointer;
 `;
 
 export const Info = props => {
@@ -103,9 +90,9 @@ export const Info = props => {
           ) : (
             <TagGroup>
               {neighbors.map(neighbor => (
-                <Tag key={neighbor} to={`/country/${neighbor}`}>
+                <Button key={neighbor} to={`/country/${neighbor}`}>
                   {neighbor}
-                </Tag>
+                </Button>
               ))}
             </TagGroup>
           )}

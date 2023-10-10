@@ -3,13 +3,17 @@ import { IoArrowBack } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { searchByCountry } from '@/config';
-import { Button } from '@components/details/Button';
 import { Info } from '@components/details/Info';
+import { Button } from '@components/shared';
 import axios from 'axios';
 
 export const Details = () => {
   const navigate = useNavigate();
   const { name } = useParams();
+
+  const navigateBack = () => {
+    navigate(-1);
+  };
 
   const [country, setCountry] = useState(null);
 
@@ -19,7 +23,7 @@ export const Details = () => {
 
   return (
     <div>
-      <Button onClick={() => navigate(-1)}>
+      <Button isLink={false} onClick={navigateBack}>
         <IoArrowBack /> Back
       </Button>
       {country && <Info {...country} />}
