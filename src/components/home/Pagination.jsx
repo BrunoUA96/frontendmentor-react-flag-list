@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import MediaQuery, { useMediaQuery } from 'react-responsive';
 
 import { Button } from '@components/shared';
 import styled from 'styled-components';
@@ -15,6 +16,11 @@ export const Pagination = ({
   paginationCount,
   setCurrentPage,
 }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
+
+  const pagesToShow = isMobile ? 3 : 5;
+  const centerNumber = Math.ceil(pagesToShow / 2);
+
   /**
    * If active page is 8 (for example), firstPageNumber = 6 - is leftmost button
    * ['<', '...', '6', '7', '8*', '9', '10', '...', '>']
@@ -22,11 +28,16 @@ export const Pagination = ({
    */
   const [firstPageNumber, setFirstPageNumber] = useState(0);
 
+  useEffect(() => {
+    if (currentPage === 1) setFirstPageNumber(0);
+  }, [currentPage]);
+
   /**
    * The number of nearest page buttons
    * ['<', '1', '2', '3', '4', '5', '>'] - arrows are not counted
    */
-  const numOfNearestPages = paginationCount >= 5 ? 5 : paginationCount;
+  const numOfNearestPages =
+    paginationCount >= pagesToShow ? pagesToShow : paginationCount;
 
   const pagesArray = [];
 
@@ -55,13 +66,18 @@ export const Pagination = ({
   const onChangePage = pageNumber => {
     if (pageNumber === currentPage) return;
 
-    if (pageNumber > 3) {
-      setFirstPageNumber(pageNumber - 3);
+    if (pageNumber > centerNumber) {
+      setFirstPageNumber(pageNumber - centerNumber);
     } else {
       setFirstPageNumber(0);
     }
 
     setCurrentPage(pageNumber);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -75,12 +91,14 @@ export const Pagination = ({
         <IoChevronBackOutline />
       </Button>
 
-      {/* Go straight to first page */}
-      {currentPage > 3 && paginationCount > numOfNearestPages && (
-        <Button onClick={() => onChangePage(1)} isLink={false}>
-          {'...'}
-        </Button>
-      )}
+      <MediaQuery minWidth={600}>
+        {/* Go straight to first page */}
+        {currentPage > 3 && paginationCount > numOfNearestPages && (
+          <Button onClick={() => onChangePage(1)} isLink={false}>
+            {'...'}
+          </Button>
+        )}
+      </MediaQuery>
 
       {/* Map available pages */}
       {slicedPages().map((element, index) => (
@@ -94,13 +112,18 @@ export const Pagination = ({
         </Button>
       ))}
 
-      {/* Go straight to last page */}
-      {currentPage < paginationCount - 2 &&
-        paginationCount > numOfNearestPages && (
-          <Button onClick={() => onChangePage(paginationCount)} isLink={false}>
-            {'...'}
-          </Button>
-        )}
+      <MediaQuery minWidth={600}>
+        {/* Go straight to last page */}
+        {currentPage < paginationCount - 2 &&
+          paginationCount > numOfNearestPages && (
+            <Button
+              onClick={() => onChangePage(paginationCount)}
+              isLink={false}
+            >
+              {'...'}
+            </Button>
+          )}
+      </MediaQuery>
 
       {/* Arrow to next page */}
       <Button
