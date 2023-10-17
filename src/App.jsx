@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { Main } from '@components/global/Main';
@@ -9,20 +8,12 @@ import { HomePage } from './pages/HomePage';
 import { NotFound } from './pages/NotFound';
 
 function App() {
-  const [countries, setCountries] = useState([]);
-
   return (
     <>
       <Header />
       <Main>
         <Routes>
-          <Route
-            index
-            path="/"
-            element={
-              <HomePage countries={countries} setCountries={setCountries} />
-            }
-          />
+          <Route index path="/" element={<HomePage />} />
           <Route path="/country/:name" element={<Details />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
