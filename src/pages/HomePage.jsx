@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useGetCountriesQuery } from '@/Api/api';
+import { selectedFilters } from '@/store/filtersSlice';
 import { Card } from '@components/home/Card';
 import { List } from '@components/home/List';
 import { Pagination } from '@components/home/Pagination';
@@ -9,6 +11,8 @@ import { Controls } from '@components/home/filters/Controls';
 
 export const HomePage = () => {
   const navigate = useNavigate();
+
+  const { search, region } = useSelector(selectedFilters);
 
   //Get Countries
   const { data = [], error, isLoading } = useGetCountriesQuery();
@@ -28,28 +32,23 @@ export const HomePage = () => {
     );
   };
 
-  const onFilterCountries = (search = '', region = '') => {
-    console.log('search:', search);
+  const onFilterCountries = (searchValue = '', regionValue = '') => {
     let countries = [...data];
 
-    if (search) {
+    if (searchValue) {
       countries = countries.filter(country =>
-        country.name.toLowerCase().includes(search.toLowerCase()),
+        country.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
-
-      // Reset pagination
-      setCurrentPage(1);
     }
 
-    if (region) {
-      countries = countries.filter(country => country.region.includes(region));
-
-      // Reset pagination
-      setCurrentPage(1);
+    if (regionValue) {
+      countries = countries.filter(country =>
+        country.region.includes(regionValue),
+      );
     }
 
     // Pagination
-    countries = calculatePagination(countries);
+    countries = [...calculatePagination(countries)];
 
     setFilteredCountries(countries);
   };
@@ -58,11 +57,19 @@ export const HomePage = () => {
     onFilterCountries();
   }, [isLoading]);
 
+  useEffect(() => {
+    onFilterCountries(search, region.value);
+  }, [search, region, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, region]);
+
   if (error) return <div>Somesing Wrong</div>;
 
   return (
     <>
-      <Controls onFilterCountries={onFilterCountries} />
+      <Controls />
 
       <List>
         {isLoading ? (

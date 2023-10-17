@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectedFilters, setRegion, setSearch } from '@/store/filtersSlice';
 import styled from 'styled-components';
 
 import { CustomSelect } from './CustomSelect';
@@ -25,37 +26,34 @@ const Wrapper = styled.div`
   }
 `;
 
-export const Controls = ({ onFilterCountries }) => {
-  const [search, setSearch] = useState('');
+export const Controls = () => {
+  const dispatch = useDispatch();
+
+  const { search, region } = useSelector(selectedFilters);
 
   const defaultRegionValue = {
     value: '',
     label: '',
   };
-  const [selectedRegion, setSelectedRegion] = useState(defaultRegionValue);
 
   const onChangeRegion = region => {
     if (region === null) region = defaultRegionValue;
 
-    setSelectedRegion(region);
+    dispatch(setRegion(region));
   };
-
-  useEffect(() => {
-    // Only value needs
-    const regionValue = selectedRegion.value;
-
-    onFilterCountries(search, regionValue);
-  }, [search, selectedRegion]);
 
   return (
     <Wrapper>
-      <Search search={search} setSearch={setSearch} />
+      <Search
+        search={search}
+        setSearch={search => dispatch(setSearch(search))}
+      />
       <CustomSelect
         isClearable
         isSearchable={false}
         placeholder="Filter by Region"
         options={selectOptions}
-        value={selectedRegion.value ? selectedRegion : ''}
+        value={region.value ? region : ''}
         onChange={onChangeRegion}
       />
     </Wrapper>
