@@ -97,11 +97,15 @@ export const HomePage = () => {
       </List>
 
       {/* Pagination */}
-      <Pagination
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        paginationCount={paginationCount}
-      />
+      {filteredCountries.length ? (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          paginationCount={paginationCount}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 };
