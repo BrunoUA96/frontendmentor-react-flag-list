@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectedFilters, setRegion, setSearch } from '@/store/filtersSlice';
+import {
+  selectedFilters,
+  setRegion,
+  setSearch,
+} from '@/store/slices/filtersSlice';
 import styled from 'styled-components';
 
 import { CustomSelect } from './CustomSelect';

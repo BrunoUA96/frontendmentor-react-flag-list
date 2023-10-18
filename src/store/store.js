@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { countriesApi } from '../Api/api';
-import filtersSlice from './filtersSlice';
-import themeSlice from './themeSlice';
+import filtersSlice from './slices/filtersSlice';
+import themeSlice from './slices/themeSlice';
 
 export const store = configureStore({
   reducer: {

@@ -3,7 +3,7 @@ import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { selectedTheme, setTheme } from '@/store/themeSlice';
+import { selectedTheme, setTheme } from '@/store/slices/themeSlice';
 import styled from 'styled-components';
 
 import { Container } from '../Container';

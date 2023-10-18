@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useGetCountriesQuery } from '@/Api/api';
-import { selectedFilters } from '@/store/filtersSlice';
+import { selectedFilters } from '@/store/slices/filtersSlice';
 import { LoadingPreview } from '@components/global/IsLoading';
 import { Card } from '@components/home/Card';
 import { List } from '@components/home/List';
