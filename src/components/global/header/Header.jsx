@@ -49,8 +49,9 @@ export const Header = () => {
 
   const { theme } = useSelector(selectedTheme);
 
-  const toggleTheme = () =>
+  const toggleTheme = () => {
     dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+  };
 
   useEffect(() => {
     // Add theme attr to body element
