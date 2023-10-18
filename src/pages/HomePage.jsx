@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useGetCountriesQuery } from '@/Api/api';
 import { selectedFilters } from '@/store/filtersSlice';
+import { LoadingPreview } from '@components/global/IsLoading';
 import { Card } from '@components/home/Card';
 import { List } from '@components/home/List';
 import { Pagination } from '@components/home/Pagination';
@@ -71,40 +72,42 @@ export const HomePage = () => {
     <>
       <Controls />
 
-      <List>
-        {isLoading ? (
-          <div>Is Loading...</div>
-        ) : (
-          filteredCountries.map(country => {
-            const countryInfo = {
-              title: country.name,
-              img: country.flags.svg,
-              listInfo: [
-                { title: 'Population', description: country.population },
-                { title: 'Region', description: country.region },
-                { title: 'Capital', description: country.capital },
-              ],
-            };
-            return (
-              <Card
-                key={country.name}
-                onClick={() => navigate(`/country/${country.name}`)}
-                {...countryInfo}
-              />
-            );
-          })
-        )}
-      </List>
-
-      {/* Pagination */}
-      {filteredCountries.length ? (
-        <Pagination
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          paginationCount={paginationCount}
-        />
+      {isLoading ? (
+        <LoadingPreview />
       ) : (
-        ''
+        <>
+          <List>
+            {filteredCountries.map(country => {
+              const countryInfo = {
+                title: country.name,
+                img: country.flags.svg,
+                listInfo: [
+                  { title: 'Population', description: country.population },
+                  { title: 'Region', description: country.region },
+                  { title: 'Capital', description: country.capital },
+                ],
+              };
+              return (
+                <Card
+                  key={country.name}
+                  onClick={() => navigate(`/country/${country.name}`)}
+                  {...countryInfo}
+                />
+              );
+            })}
+          </List>
+
+          {/* Pagination */}
+          {filteredCountries.length ? (
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              paginationCount={paginationCount}
+            />
+          ) : (
+            ''
+          )}
+        </>
       )}
     </>
   );

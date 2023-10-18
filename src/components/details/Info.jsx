@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { filterByCode } from '@/config';
+import { filterByCode } from '@/Api/config';
 import { Button, Image, List, ListItem } from '@components/shared';
 import axios from 'axios';
 import styled from 'styled-components';
