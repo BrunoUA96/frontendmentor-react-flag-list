@@ -1,8 +1,5 @@
-import { useEffect, useState } from 'react';
-
-import { filterByCode } from '@/Api/config';
+import { useGetBorderCountriesQuery } from '@/Api/api';
 import { Button, Image, List, ListItem } from '@components/shared';
-import axios from 'axios';
 import styled from 'styled-components';
 
 import { ListGroup, Meta, TagGroup, Wrapper } from '.';
@@ -26,14 +23,7 @@ export const Info = props => {
     borders = [],
   } = props;
 
-  const [neighbors, setNeighbors] = useState([]);
-
-  useEffect(() => {
-    if (borders.length)
-      axios
-        .get(filterByCode(borders))
-        .then(({ data }) => setNeighbors(data.map(country => country.name)));
-  }, [borders]);
+  const { data = [] } = useGetBorderCountriesQuery(borders);
 
   return (
     <Wrapper>
@@ -89,7 +79,7 @@ export const Info = props => {
             <span>There is no border countries</span>
           ) : (
             <TagGroup>
-              {neighbors.map(neighbor => (
+              {data.map(neighbor => (
                 <Button key={neighbor} to={`/country/${neighbor}`}>
                   {neighbor}
                 </Button>

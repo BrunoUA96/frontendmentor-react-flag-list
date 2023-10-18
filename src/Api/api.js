@@ -1,15 +1,3 @@
-// import { ALL_COUNTRIES } from '@/Api/config';
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-// export const countriesApi = createApi({
-//   reducerPath: 'countiesApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: ALL_COUNTRIES }),
-//   endpoints: builder => ({
-//     getCountries: builder.query({
-//       query: () => '',
-//     }),
-//   }),
-// });
-// export const { useGetCountriesQuery } = countriesApi;
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const countriesApi = createApi({
@@ -29,7 +17,23 @@ export const countriesApi = createApi({
     getCountry: builder.query({
       query: name => `name/${name}`,
     }),
+    getBorderCountries: builder.query({
+      query: params => {
+        return {
+          url: 'alpha',
+          params: { codes: [...params] },
+        };
+      },
+      transformResponse: (response = []) => {
+        // @ts-ignore
+        return response.map(res => res.name);
+      },
+    }),
   }),
 });
 
-export const { useGetCountriesQuery, useGetCountryQuery } = countriesApi;
+export const {
+  useGetCountriesQuery,
+  useGetCountryQuery,
+  useGetBorderCountriesQuery,
+} = countriesApi;
