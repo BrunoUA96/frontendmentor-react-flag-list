@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { IoMoon, IoMoonOutline } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { selectedTheme, setTheme } from '@/store/themeSlice';
 import styled from 'styled-components';
 
 import { Container } from '../Container';
@@ -43,15 +45,17 @@ const ThemeSwitcher = styled.div`
 `;
 
 export const Header = () => {
-  const [themeColor, setThemeColor] = useState('light');
+  const dispatch = useDispatch();
+
+  const { theme } = useSelector(selectedTheme);
 
   const toggleTheme = () =>
-    setThemeColor(themeColor === 'light' ? 'dark' : 'light');
+    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
 
   useEffect(() => {
     // Add theme attr to body element
-    document.body.setAttribute('data-theme', themeColor);
-  }, [themeColor]);
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
 
   return (
     <HeaderElement>
@@ -59,12 +63,12 @@ export const Header = () => {
         <Wrapper>
           <Title to="/">Where in the world?</Title>
           <ThemeSwitcher onClick={toggleTheme}>
-            {themeColor === 'light' ? (
+            {theme === 'light' ? (
               <IoMoonOutline size="16px" />
             ) : (
               <IoMoon size="16px" />
             )}
-            {themeColor} Mode
+            {theme} Mode
           </ThemeSwitcher>
         </Wrapper>
       </Container>
