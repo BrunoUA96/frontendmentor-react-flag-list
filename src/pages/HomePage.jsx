@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useGetCountriesQuery } from '@/Api/api';
 import { selectedFilters } from '@/store/slices/filtersSlice';
+import { selectedPage, setCurrentPage } from '@/store/slices/paginationSlice';
 import { LoadingPreview } from '@components/global/IsLoading';
 import { Card } from '@components/home/Card';
 import { List } from '@components/home/List';
@@ -11,6 +12,7 @@ import { Pagination } from '@components/home/Pagination';
 import { Controls } from '@components/home/filters/Controls';
 
 export const HomePage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { search, region } = useSelector(selectedFilters);
@@ -20,8 +22,9 @@ export const HomePage = () => {
   const [filteredCountries, setFilteredCountries] = useState(data);
 
   // Count of pages
+  const firstUpdate = useRef(true);
+  const { currentPage } = useSelector(selectedPage);
   const [paginationCount, setPaginationCount] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
   const calculatePagination = data => {
@@ -63,7 +66,11 @@ export const HomePage = () => {
   }, [search, region, currentPage]);
 
   useEffect(() => {
-    setCurrentPage(1);
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    dispatch(setCurrentPage(1));
   }, [search, region]);
 
   if (error) return <div>Somesing Wrong</div>;
@@ -100,7 +107,9 @@ export const HomePage = () => {
           {/* Pagination */}
           {filteredCountries.length ? (
             <Pagination
-              setCurrentPage={setCurrentPage}
+              setCurrentPage={pageNumber =>
+                dispatch(setCurrentPage(pageNumber))
+              }
               currentPage={currentPage}
               paginationCount={paginationCount}
             />

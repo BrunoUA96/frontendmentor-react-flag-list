@@ -2,11 +2,11 @@
 @import url(./assets/normalize.css);
 
 /* Font */
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,600;6..12,800&display=swap');
 
 /* Global styles */
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 /* CSS Global Vars */
@@ -39,11 +39,16 @@ body[data-theme='light'] {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: 'Nunito Sans', sans-serif;
   color: var(--text-color);
   font-weight: var(--fw-light);
   background-color: var(--bg-color);
+}
+
+main {
   transition: var(--transition);
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 82.4px);
 }
 
 /* Style placeholders */
